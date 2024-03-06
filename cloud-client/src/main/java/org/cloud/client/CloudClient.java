@@ -8,13 +8,20 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class CloudClient extends Application {
+    FXMLLoader fxmlLoader;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(CloudClient.class.getResource("cloud-client-view.fxml"));
+        fxmlLoader = new FXMLLoader(CloudClient.class.getResource("cloud-client-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Cloud client");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        CloudMainController controller = fxmlLoader.getController();
+        controller.closeHandler();
     }
 
     public static void main(String[] args) {

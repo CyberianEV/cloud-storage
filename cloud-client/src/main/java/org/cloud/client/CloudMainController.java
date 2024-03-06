@@ -16,14 +16,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CloudMainController implements Initializable {
+public class CloudMainController implements Initializable, MessageHandlerListener {
     private static final Logger log = LoggerFactory.getLogger(CloudMainController.class);
     public ListView<String> clientView;
     public ListView<String> serverView;
     private String currentDirectory;
 
+    MessageHandler messageHandler;
     private Socket socket;
-    private DataInputStream dis;
     private DataOutputStream dos;
     private String host = "127.0.0.1";
     private int port = 8189;
@@ -72,6 +72,10 @@ public class CloudMainController implements Initializable {
         });
     }
 
+    public void closeHandler() {
+        messageHandler.close();
+    }
+
     private void setCurrentDirectory(String directory) {
         currentDirectory = directory;
         fillView(clientView, getFiles(currentDirectory));
@@ -99,13 +103,21 @@ public class CloudMainController implements Initializable {
     private void networkInit(String host, int port) {
         try {
             socket = new Socket(host, port);
+            new Thread(messageHandler = new MessageHandler(socket, this), "msg-handler-thread").start();
             log.info("client socket created");
-            dis = new DataInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
-            log.info("client socket ready");
+            log.info("output stream created");
         } catch (IOException e) {
             log.error("failed to connect to the server");
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void onDirStructureReceived(String structure) {
+        String filesString = structure.substring(Commands.DIR_STRUCTURE.length()
+                + Commands.DELIMITER.length());
+        List<String> files = new ArrayList<>(Arrays.asList(filesString.split(Commands.DELIMITER)));
+        fillView(serverView, files);
     }
 }
