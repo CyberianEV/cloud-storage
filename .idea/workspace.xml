@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c6947e6-7569-4f99-b27e-07687d65ab26" name="Changes" comment="add classwork">
-      <change afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandlerListener.java" afterDir="false" />
+    <list default="true" id="3c6947e6-7569-4f99-b27e-07687d65ab26" name="Changes" comment="add retrieving folder structure from the server">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudMainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudMainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandlerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandlerListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/Commands.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/server/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/server/FileHandler.java" afterDir="false" />
     </list>
@@ -162,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709742973798</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add retrieving folder structure from the server">
+      <created>1709761009026</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1709761009026</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -183,6 +189,7 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="add new fx controller" />
     <MESSAGE value="add classwork" />
-    <option name="LAST_COMMIT_MESSAGE" value="add classwork" />
+    <MESSAGE value="add retrieving folder structure from the server" />
+    <option name="LAST_COMMIT_MESSAGE" value="add retrieving folder structure from the server" />
   </component>
 </project>

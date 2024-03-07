@@ -11,15 +11,31 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class CloudMainController implements Initializable, MessageHandlerListener {
     private static final Logger log = LoggerFactory.getLogger(CloudMainController.class);
     public ListView<String> clientView;
     public ListView<String> serverView;
+
+    @Override
+    public void onDirStructureReceived(String structure) {
+        String filesString = structure.substring(Commands.DIR_STRUCTURE.length()
+                + Commands.DELIMITER.length());
+        List<String> files = new ArrayList<>(Arrays.asList(filesString.split(Commands.DELIMITER)));
+        fillView(serverView, files);
+    }
+
+    @Override
+    public String getCurrentDirectory() {
+        return currentDirectory;
+    }
+
+    @Override
+    public void onReceivedFile() {
+        fillView(clientView, getFiles(currentDirectory));
+    }
+
     private String currentDirectory;
 
     MessageHandler messageHandler;
@@ -35,26 +51,31 @@ public class CloudMainController implements Initializable, MessageHandlerListene
         File file = new File(filePath);
         if (file.isFile()) {
             try {
-                dos.writeUTF(Commands.SEND_FILE);
-                log.info("command sent");
-                dos.writeUTF(fileName);
+                dos.writeUTF(Commands.getSendFile(fileName));
                 dos.writeLong(file.length());
-                log.info("file name and size sent");
+                log.info("command size sent");
                 try (FileInputStream fis = new FileInputStream(file)) {
                     byte[] bytes = fis.readAllBytes();
-                    log.info("file read to bytes");
                     dos.write(bytes);
                     log.info("file sent");
                 } catch (IOException e) {
+                    log.error("failed to send file", e);
                     throw new RuntimeException(e);
                 }
             } catch (Exception e) {
-                log.debug("error" + e.getMessage());
+                log.debug("failed to send command", e);
             }
         }
     }
 
     public void retrieveFromServer(ActionEvent actionEvent) {
+        String fileName = serverView.getSelectionModel().getSelectedItem();
+        try {
+            dos.writeUTF(Commands.getRetrieveFile(fileName));
+        } catch (IOException e) {
+            log.debug("failed to send command", e);
+        }
+
     }
 
     @Override
@@ -97,6 +118,7 @@ public class CloudMainController implements Initializable, MessageHandlerListene
 
     private void fillView(ListView<String> view, List<String> data) {
         view.getItems().clear();
+        Collections.sort(data);
         view.getItems().setAll(data);
     }
 
@@ -111,13 +133,5 @@ public class CloudMainController implements Initializable, MessageHandlerListene
             log.error("failed to connect to the server");
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void onDirStructureReceived(String structure) {
-        String filesString = structure.substring(Commands.DIR_STRUCTURE.length()
-                + Commands.DELIMITER.length());
-        List<String> files = new ArrayList<>(Arrays.asList(filesString.split(Commands.DELIMITER)));
-        fillView(serverView, files);
     }
 }

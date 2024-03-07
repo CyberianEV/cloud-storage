@@ -51,8 +51,10 @@ public class FileHandler implements Runnable {
     }
 
     private void handleCommand(String command) throws IOException {
-        if (command.equals(Commands.SEND_FILE)) {
-            String fileName = SERVER_DIR + "/" + dis.readUTF();
+        String[] messageArr = command.split(Commands.DELIMITER);
+        String commandType = messageArr[0];
+        if (commandType.equals(Commands.SEND_FILE)) {
+            String fileName = SERVER_DIR + "/" + messageArr[1];
             long size = dis.readLong();
             log.info("file name and length received");
             try (FileOutputStream fos = new FileOutputStream(fileName)) {
@@ -63,7 +65,29 @@ public class FileHandler implements Runnable {
                 log.info("file written");
                 sendDirectoryStructure(SERVER_DIR);
             } catch (IOException e) {
+                log.error("failed to write file", e);
                 throw new RuntimeException(e);
+            }
+        } else if (commandType.equals(Commands.RETRIEVE_FILE)) {
+            String fileName = messageArr[1];
+            String filePath = SERVER_DIR + "/" + fileName;
+            File file = new File(filePath);
+            if (file.isFile()) {
+                try {
+                    dos.writeUTF(Commands.getSendFile(fileName));
+                    dos.writeLong(file.length());
+                    log.info("command and size sent");
+                    try (FileInputStream fis = new FileInputStream(file)) {
+                        byte[] bytes = fis.readAllBytes();
+                        dos.write(bytes);
+                        log.info("file sent");
+                    } catch (IOException e) {
+                        log.error("failed to send file", e);
+                        throw new RuntimeException(e);
+                    }
+                }  catch (Exception e) {
+                    log.debug("failed to send command", e);
+                }
             }
         } else {
             log.error("Unknown command received: " + command);
