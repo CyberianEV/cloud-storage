@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c6947e6-7569-4f99-b27e-07687d65ab26" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-common/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/Commands.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-server/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    <list default="true" id="3c6947e6-7569-4f99-b27e-07687d65ab26" name="Changes" comment="add retrieving folder structure from the server">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudMainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudMainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandlerListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandlerListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/Commands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/server/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/server/FileHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +20,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="module-info" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
     </option>
   </component>
   <component name="MarkdownSettingsMigration">
@@ -49,18 +55,23 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/evgenii/IdeaProjects/cloud/cloud-client&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/evgenii/IdeaProjects/cloud/cloud-client/src/main/resources&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cloud-client/src/main/resources" />
+      <recent name="$PROJECT_DIR$/cloud-server/src/main/resources" />
       <recent name="$PROJECT_DIR$/cloud-client" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.cloud.cloudclient.HelloApplication" />
+  <component name="RunManager" selected="Application.org.cloud.client.CloudClient">
+    <configuration name="CloudClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.cloud.cloudclient.CloudClient" />
       <module name="cloud-client" />
       <extension name="coverage">
         <pattern>
@@ -72,9 +83,51 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CloudClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.cloud.cloudclient.CloudClient" />
+      <module name="cloud-client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.cloud.cloudclient.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CloudServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.cloud.server.CloudServer" />
+      <module name="cloud-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.cloud.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="org.cloud.client.CloudClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.cloud.client.CloudClient" />
+      <module name="cloud-client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.cloud.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.HelloApplication" />
+        <item itemvalue="Application.org.cloud.client.CloudClient" />
+        <item itemvalue="Application.CloudServer" />
+        <item itemvalue="Application.CloudClient" />
+        <item itemvalue="Application.org.cloud.client.CloudClient" />
       </list>
     </recent_temporary>
   </component>
@@ -87,11 +140,56 @@
       <option name="presentableId" value="Default" />
       <updated>1709648224711</updated>
     </task>
+    <task id="LOCAL-00001" summary="initial commit">
+      <created>1709649053000</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1709649053000</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add new fx controller">
+      <created>1709649269416</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1709649269416</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add classwork">
+      <created>1709742973798</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1709742973798</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add retrieving folder structure from the server">
+      <created>1709761009026</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1709761009026</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
       <path value="$PROJECT_DIR$/cloud-client" />
     </ignored-roots>
+    <MESSAGE value="initial commit" />
+    <MESSAGE value="add new fx controller" />
+    <MESSAGE value="add classwork" />
+    <MESSAGE value="add retrieving folder structure from the server" />
+    <option name="LAST_COMMIT_MESSAGE" value="add retrieving folder structure from the server" />
   </component>
 </project>
