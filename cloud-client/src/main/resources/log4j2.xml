@@ -20,7 +20,7 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="org.cloud.client" level="trace" additivity="false">
+        <Logger name="org.cloud" level="trace" additivity="false">
             <AppenderRef ref="STDOUT"/>
 <!--            <AppenderRef ref="FILE2"/>-->
         </Logger>

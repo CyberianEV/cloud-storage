@@ -18,12 +18,6 @@ public class CloudClient extends Application {
         stage.show();
     }
 
-    @Override
-    public void stop() throws Exception {
-        CloudMainController controller = fxmlLoader.getController();
-        controller.closeHandler();
-    }
-
     public static void main(String[] args) {
         launch();
     }
