@@ -1,46 +1,32 @@
 package org.cloud.client;
 
+import javafx.application.Platform;
+import lombok.extern.slf4j.Slf4j;
 import org.cloud.common.Commands;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.cloud.common.DaemonThreadFactory;
+import org.cloud.common.FileUtils;
 
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
 import java.util.*;
 
-public class CloudMainController implements Initializable, MessageHandlerListener {
-    private static final Logger log = LoggerFactory.getLogger(CloudMainController.class);
+@Slf4j
+public class CloudMainController implements Initializable {
     public ListView<String> clientView;
     public ListView<String> serverView;
 
-    @Override
-    public void onDirStructureReceived(String structure) {
-        String filesString = structure.substring(Commands.DIR_STRUCTURE.length()
-                + Commands.DELIMITER.length());
-        List<String> files = new ArrayList<>(Arrays.asList(filesString.split(Commands.DELIMITER)));
-        fillView(serverView, files);
-    }
-
-    @Override
-    public String getCurrentDirectory() {
-        return currentDirectory;
-    }
-
-    @Override
-    public void onReceivedFile() {
-        fillView(clientView, getFiles(currentDirectory));
-    }
+    DaemonThreadFactory factory = new DaemonThreadFactory();
 
     private String currentDirectory;
 
-    MessageHandler messageHandler;
     private Socket socket;
     private DataOutputStream dos;
+    private DataInputStream dis;
     private String host = "127.0.0.1";
     private int port = 8189;
 
@@ -75,7 +61,6 @@ public class CloudMainController implements Initializable, MessageHandlerListene
         } catch (IOException e) {
             log.debug("failed to send command", e);
         }
-
     }
 
     @Override
@@ -91,10 +76,6 @@ public class CloudMainController implements Initializable, MessageHandlerListene
                 }
             }
         });
-    }
-
-    public void closeHandler() {
-        messageHandler.close();
     }
 
     private void setCurrentDirectory(String directory) {
@@ -125,13 +106,45 @@ public class CloudMainController implements Initializable, MessageHandlerListene
     private void networkInit(String host, int port) {
         try {
             socket = new Socket(host, port);
-            new Thread(messageHandler = new MessageHandler(socket, this), "msg-handler-thread").start();
-            log.info("client socket created");
-            dos = new DataOutputStream(socket.getOutputStream());
-            log.info("output stream created");
+            factory.getNamedThread(this::readMessages,
+                    "client-listener-thread"
+            ).start();
         } catch (IOException e) {
             log.error("failed to connect to the server");
             throw new RuntimeException(e);
+        }
+    }
+
+    private void readMessages() {
+        try {
+            dis = new DataInputStream(socket.getInputStream());
+            dos = new DataOutputStream(socket.getOutputStream());
+            log.info("Socket ready");
+            log.info("Socket start listening...");
+            while (true) {
+                String message = dis.readUTF();
+                log.info("Message received: " + message);
+                handleMessage(message);
+            }
+        } catch (IOException e) {
+            log.debug("Client disconnected");
+        }
+    }
+
+    private void handleMessage(String message) throws IOException{
+        String[] messageArr = message.split(Commands.DELIMITER);
+        String messageType = messageArr[0];
+        if (messageType.equals(Commands.DIR_STRUCTURE)) {
+            String filesString = message.substring(Commands.DIR_STRUCTURE.length()
+                    + Commands.DELIMITER.length());
+            List<String> files = new ArrayList<>(Arrays.asList(filesString.split(Commands.DELIMITER)));
+            Platform.runLater(() -> fillView(serverView, files));
+        } else if (messageType.equals(Commands.SEND_FILE)) {
+            FileUtils.readFileFromStream(currentDirectory, messageArr[1], dis);
+            Platform.runLater(() -> fillView(clientView, getFiles(currentDirectory)));
+        } else {
+            log.error("Unknown message received: " + message);
+            throw new RuntimeException("Unknown message received: " + message);
         }
     }
 }

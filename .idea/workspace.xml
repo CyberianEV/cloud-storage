@@ -5,10 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c6947e6-7569-4f99-b27e-07687d65ab26" name="Changes" comment="add retrieving file from server">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/javafour/TerminalServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/DaemonThreadFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/FileUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudMainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudMainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandlerListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/resources/log4j2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/server/CloudServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/server/CloudServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/server/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/server/FileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-server/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-server/src/main/resources/log4j2.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +37,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="first" />
+        <entry key="$PROJECT_DIR$" value="seconf" />
       </map>
     </option>
   </component>
@@ -53,7 +63,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "/Users/evgenii/IdeaProjects/cloud/out/production/cloud/org",
+    "last_opened_file_path": "/Users/evgenii/IdeaProjects/cloud/cloud-common/target/classes",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -62,17 +72,17 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cloud-common/target/classes" />
+      <recent name="$PROJECT_DIR$/cloud-common/src/main/resources" />
       <recent name="$PROJECT_DIR$/out/production/cloud/org" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/cloud-client/src/main/resources" />
-      <recent name="$PROJECT_DIR$/cloud-server/src/main/resources" />
-      <recent name="$PROJECT_DIR$/cloud-client" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/out/production/cloud" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.TerminalServer">
+  <component name="RunManager" selected="Application.org.cloud.client.CloudClient">
     <configuration name="CloudClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.cloud.cloudclient.CloudClient" />
       <module name="cloud-client" />
@@ -140,9 +150,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TerminalServer" />
         <item itemvalue="Application.org.cloud.client.CloudClient" />
         <item itemvalue="Application.CloudServer" />
+        <item itemvalue="Application.TerminalServer" />
         <item itemvalue="Application.CloudClient" />
         <item itemvalue="Application.org.cloud.client.CloudClient" />
       </list>
@@ -192,7 +202,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709820780437</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add retrieving file from server">
+      <created>1710360419029</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1710360419029</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
