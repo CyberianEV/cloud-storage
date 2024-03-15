@@ -3,4 +3,5 @@ module cloud.common {
     requires static lombok;
 
     exports org.cloud.common;
+    exports org.cloud.model;
 }

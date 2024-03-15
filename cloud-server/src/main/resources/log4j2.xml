@@ -20,15 +20,15 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="org.cloud" level="trace" additivity="false">
-            <AppenderRef ref="STDOUT"/>
-<!--            <AppenderRef ref="FILE2"/>-->
-        </Logger>
-
-<!--        <Root level="warn">-->
+<!--        <Logger name="org.cloud" level="trace" additivity="false">-->
 <!--            <AppenderRef ref="STDOUT"/>-->
+<!--            <AppenderRef ref="FILE2"/>-->
+<!--        </Logger>-->
+
+        <Root level="trace">
+            <AppenderRef ref="STDOUT"/>
 <!--            <AppenderRef ref="FILE"/>-->
-<!--        </Root>-->
+        </Root>
     </Loggers>
 
 </Configuration>

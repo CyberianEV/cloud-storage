@@ -4,21 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c6947e6-7569-4f99-b27e-07687d65ab26" name="Changes" comment="add retrieving file from server">
-      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/DaemonThreadFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/FileUtils.java" afterDir="false" />
+    <list default="true" id="3c6947e6-7569-4f99-b27e-07687d65ab26" name="Changes" comment="add code optimization">
+      <change afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/Network.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/CloudMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/FileMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/FileRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/ListDirMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/MessageType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/nettyserver/FileHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/nettyserver/FileServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudMainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudMainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/MessageHandlerListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/resources/log4j2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/server/CloudServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/server/CloudServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/server/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/server/FileHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-server/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-server/src/main/resources/log4j2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +38,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="seconf" />
+        <entry key="$PROJECT_DIR$" value="code-opt" />
       </map>
     </option>
   </component>
@@ -67,7 +68,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.editor"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -122,6 +123,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FileServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.cloud.nettyserver.FileServer" />
+      <module name="cloud-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.cloud.nettyserver.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TerminalServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.javafour.TerminalServer" />
       <module name="cloud" />
@@ -151,10 +165,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.org.cloud.client.CloudClient" />
+        <item itemvalue="Application.FileServer" />
         <item itemvalue="Application.CloudServer" />
         <item itemvalue="Application.TerminalServer" />
         <item itemvalue="Application.CloudClient" />
-        <item itemvalue="Application.org.cloud.client.CloudClient" />
       </list>
     </recent_temporary>
   </component>
@@ -209,7 +223,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710360419029</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add code optimization">
+      <created>1710422584540</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1710422584540</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -232,6 +253,11 @@
     <MESSAGE value="add classwork" />
     <MESSAGE value="add retrieving folder structure from the server" />
     <MESSAGE value="add retrieving file from server" />
-    <option name="LAST_COMMIT_MESSAGE" value="add retrieving file from server" />
+    <MESSAGE value="add code optimization" />
+    <option name="LAST_COMMIT_MESSAGE" value="add code optimization" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
