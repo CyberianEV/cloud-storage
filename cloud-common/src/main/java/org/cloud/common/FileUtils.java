@@ -3,8 +3,12 @@ package org.cloud.common;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class FileUtils {
@@ -26,5 +30,31 @@ public class FileUtils {
             log.error("failed to write file", e);
             throw new RuntimeException(e);
         }
+    }
+
+    public static List<String> getFilesFromDir(String directory) {
+        File dir = new File(directory);
+        if (dir.isDirectory()) {
+            File[] content = dir.listFiles();
+            if (content != null) {
+                List<String> directories = new ArrayList<>();
+                List<String> files = new ArrayList<>();
+                for (File file : content) {
+                    if (file.isDirectory()) {
+                        directories.add(file.getName());
+                    } else {
+                        files.add(file.getName());
+                    }
+                }
+                directories.sort(Collator.getInstance());
+                files.sort(Collator.getInstance());
+                List<String> list = new ArrayList<>();
+                list.add("..");
+                list.addAll(directories);
+                list.addAll(files);
+                return list;
+            }
+        }
+        return List.of();
     }
 }

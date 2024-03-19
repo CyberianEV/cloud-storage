@@ -1,21 +1,27 @@
 package org.cloud.model;
 
 import lombok.Getter;
+import org.cloud.common.FileUtils;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class ListDirMessage implements CloudMessage {
     private final List<String> files;
 
-    public ListDirMessage(Path path) throws IOException {
-        files = Files.list(path)
-                .map(p -> p.getFileName().toString())
-                .collect(Collectors.toList());
+    public ListDirMessage(Path currentDir, Path topDir) {
+        if (currentDir.equals(topDir)) {
+            List<String> list = FileUtils.getFilesFromDir(currentDir.toString());
+            list.remove(0);
+            files = list;
+        } else {
+            files = FileUtils.getFilesFromDir(currentDir.toString());
+        }
+    }
+
+    public ListDirMessage(List<String> files) {
+        this.files = files;
     }
 
     @Override

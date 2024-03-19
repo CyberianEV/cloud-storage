@@ -4,22 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c6947e6-7569-4f99-b27e-07687d65ab26" name="Changes" comment="add code optimization">
-      <change afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/Network.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/CloudMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/FileMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/FileRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/ListDirMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/MessageType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/nettyserver/FileHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/nettyserver/FileServer.java" afterDir="false" />
+    <list default="true" id="3c6947e6-7569-4f99-b27e-07687d65ab26" name="Changes" comment="add classwork">
+      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/NavigationRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudMainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudMainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-server/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-server/src/main/resources/log4j2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/ListDirMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/ListDirMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/MessageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/MessageType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/nettyserver/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/nettyserver/FileHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,19 +50,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "/Users/evgenii/IdeaProjects/cloud/cloud-common/target/classes",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/evgenii/IdeaProjects/cloud/cloud-common/target/classes&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/cloud-common/target/classes" />
@@ -83,7 +75,7 @@
       <recent name="$PROJECT_DIR$/out/production/cloud" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.org.cloud.client.CloudClient">
+  <component name="RunManager" selected="Application.FileServer">
     <configuration name="CloudClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.cloud.cloudclient.CloudClient" />
       <module name="cloud-client" />
@@ -230,8 +222,26 @@
       <option name="project" value="LOCAL" />
       <updated>1710422584540</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add classwork">
+      <created>1710523764661</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1710523764661</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -250,11 +260,11 @@
     </ignored-roots>
     <MESSAGE value="initial commit" />
     <MESSAGE value="add new fx controller" />
-    <MESSAGE value="add classwork" />
     <MESSAGE value="add retrieving folder structure from the server" />
     <MESSAGE value="add retrieving file from server" />
     <MESSAGE value="add code optimization" />
-    <option name="LAST_COMMIT_MESSAGE" value="add code optimization" />
+    <MESSAGE value="add classwork" />
+    <option name="LAST_COMMIT_MESSAGE" value="add classwork" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -4,17 +4,13 @@ import io.netty.handler.codec.serialization.ObjectDecoderInputStream;
 import io.netty.handler.codec.serialization.ObjectEncoderOutputStream;
 import javafx.application.Platform;
 import lombok.extern.slf4j.Slf4j;
-import org.cloud.common.Commands;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import org.cloud.common.DaemonThreadFactory;
 import org.cloud.common.FileUtils;
-import org.cloud.model.CloudMessage;
-import org.cloud.model.FileMessage;
-import org.cloud.model.FileRequest;
-import org.cloud.model.ListDirMessage;
+import org.cloud.model.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -62,30 +58,25 @@ public class CloudMainController implements Initializable {
                 }
             }
         });
+        serverView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                String selected = serverView.getSelectionModel().getSelectedItem();
+                try {
+                    network.getOutputStream().writeObject(new NavigationRequest(selected));
+                } catch (IOException e) {
+                    log.error("failed to send navigation message");
+                }
+            }
+        });
     }
 
     private void setCurrentDirectory(String directory) {
         currentDirectory = directory;
-        fillView(clientView, getFiles(currentDirectory));
-    }
-
-    private List<String> getFiles(String directory) {
-        File dir = new File(directory);
-        if (dir.isDirectory()) {
-            String[] list = dir.list();
-            if (list != null) {
-                List<String> files = new ArrayList<>();
-                files.add("..");
-                files.addAll(Arrays.asList(list));
-                return files;
-            }
-        }
-        return List.of();
+        fillView(clientView, FileUtils.getFilesFromDir(currentDirectory));
     }
 
     private void fillView(ListView<String> view, List<String> data) {
         view.getItems().clear();
-        Collections.sort(data);
         view.getItems().setAll(data);
     }
 
@@ -126,7 +117,7 @@ public class CloudMainController implements Initializable {
             Platform.runLater(() -> fillView(serverView, listDirMessage.getFiles()));
         } else if (message instanceof FileMessage fileMessage) {
             Files.write(Path.of(currentDirectory).resolve(fileMessage.getFileName()), fileMessage.getFileBytes());
-            Platform.runLater(() -> fillView(clientView, getFiles(currentDirectory)));
+            Platform.runLater(() -> fillView(clientView, FileUtils.getFilesFromDir(currentDirectory)));
         }
     }
 }
