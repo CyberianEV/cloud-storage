@@ -3,6 +3,7 @@ package org.cloud.nettyserver;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.cloud.common.FileUtils;
 import org.cloud.model.*;
 
 import java.nio.file.Files;
@@ -28,12 +29,20 @@ public class FileHandler extends SimpleChannelInboundHandler<CloudMessage> {
             Files.write(currentDir.resolve(fileMessage.getFileName()), fileMessage.getFileBytes());
             ctx.writeAndFlush(new ListDirMessage(currentDir, serverDir));
         } else if (cloudMessage instanceof FileRequest fileRequest) {
-            ctx.writeAndFlush(new FileMessage(currentDir.resolve(fileRequest.getFileName())));
+            FileUtils.sendFileToNetwork(currentDir.toString(), fileRequest.getFileName(), ctx);
         } else if (cloudMessage instanceof NavigationRequest navigationRequest) {
             Path dir = currentDir.resolve(Path.of(navigationRequest.getDirName()));
             if (Files.isDirectory(dir)) {
                 currentDir = dir.normalize();
                 ctx.writeAndFlush(new ListDirMessage(currentDir, serverDir));
+            }
+        } else if (cloudMessage instanceof FileCutMessage fileCut) {
+            FileUtils.writeCutToFile(currentDir.toString(), fileCut.getFileName(), fileCut.getFileBytes(),
+                    fileCut.getCutSize());
+            log.debug("file cut #{} from {} written", fileCut.getCutNumber(), fileCut.getFileName());
+            if (fileCut.isLastCut()) {
+                ctx.writeAndFlush(new ListDirMessage(currentDir, serverDir));
+                log.debug("FILE '{}' WRITTEN", fileCut.getFileName());
             }
         }
     }

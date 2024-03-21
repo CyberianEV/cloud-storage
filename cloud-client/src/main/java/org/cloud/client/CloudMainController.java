@@ -33,11 +33,9 @@ public class CloudMainController implements Initializable {
     private String host = "127.0.0.1";
     private int port = 8189;
 
-
-    public void sendToServer(ActionEvent actionEvent) throws IOException {
+    public void sendToServer(ActionEvent actionEvent) {
         String fileName = clientView.getSelectionModel().getSelectedItem();
-        Path filePath = Path.of(currentDirectory).resolve(fileName);
-        network.getOutputStream().writeObject(new FileMessage(filePath));
+        FileUtils.sendFileToNetwork(currentDirectory, fileName, network.getOutputStream());
     }
 
     public void retrieveFromServer(ActionEvent actionEvent) throws IOException {
@@ -118,6 +116,13 @@ public class CloudMainController implements Initializable {
         } else if (message instanceof FileMessage fileMessage) {
             Files.write(Path.of(currentDirectory).resolve(fileMessage.getFileName()), fileMessage.getFileBytes());
             Platform.runLater(() -> fillView(clientView, FileUtils.getFilesFromDir(currentDirectory)));
+        } else if (message instanceof FileCutMessage fileCut) {
+            FileUtils.writeCutToFile(currentDirectory, fileCut.getFileName(), fileCut.getFileBytes(), fileCut.getCutSize());
+            log.debug("file cut #{} from {} written", fileCut.getCutNumber(), fileCut.getFileName());
+            if (fileCut.isLastCut()) {
+                Platform.runLater(() -> fillView(clientView, FileUtils.getFilesFromDir(currentDirectory)));
+                log.debug("FILE '{}' WRITTEN", fileCut.getFileName());
+            }
         }
     }
 }

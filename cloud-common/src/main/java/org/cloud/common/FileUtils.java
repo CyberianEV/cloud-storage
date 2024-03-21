@@ -1,11 +1,12 @@
 package org.cloud.common;
 
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.serialization.ObjectEncoderOutputStream;
 import lombok.extern.slf4j.Slf4j;
+import org.cloud.model.FileCutMessage;
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Slf4j
 public class FileUtils {
     private static final int BATCH_SIZE = 256;
+    private static final int CUT_SIZE = 1024*256;
 
     public static void readFileFromStream (String dstDirectory, String fileName, DataInputStream dis) throws IOException {
         byte[] batch = new byte[BATCH_SIZE];
@@ -29,6 +31,44 @@ public class FileUtils {
                 IOException e) {
             log.error("failed to write file", e);
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void sendFileToNetwork(String srcDirectory, String fileName, Object output) {
+        File file = new File(srcDirectory + "/" + fileName);
+        if (file.isFile()) {
+            long fileSize = file.length();
+            byte[] bytes = new byte[CUT_SIZE];
+            long numberOfCuts = (fileSize + CUT_SIZE - 1) / CUT_SIZE;
+            try (InputStream in = new BufferedInputStream(new FileInputStream(file))) {
+                for (int i = 1; i <= numberOfCuts; i++) {
+                    int bytesRead = in.read(bytes);
+                    if (output instanceof ObjectEncoderOutputStream objectOutputStream) {
+                        objectOutputStream.writeObject(new FileCutMessage(fileName, bytesRead, bytes, i,
+                                i == numberOfCuts));
+                    } else if (output instanceof ChannelHandlerContext ctx) {
+                        ctx.writeAndFlush(new FileCutMessage(fileName, bytesRead, bytes, i, i == numberOfCuts));
+                    } else {
+                        throw new RuntimeException("Inappropriate output object");
+                    }
+                    log.debug("file cut #{} / {} from {} sent", i, numberOfCuts, fileName);
+                }
+            } catch (IOException e) {
+                log.error("file transfer interrupted", e);
+            }
+            log.debug("file '{}' sent", fileName);
+        } else {
+            log.debug("can't send a directory");
+        }
+    }
+
+    public static void writeCutToFile(String dstDirectory, String fileName, byte[] cutBytes, int cutSize) {
+        File file = new File(dstDirectory + "/" + fileName);
+        try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file, true))) {
+            out.write(cutBytes, 0, cutSize);
+            out.flush();
+        } catch (IOException e) {
+            log.error("file writing is interrupted", e);
         }
     }
 
