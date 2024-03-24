@@ -15,6 +15,7 @@ public class CloudClient extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Cloud client");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

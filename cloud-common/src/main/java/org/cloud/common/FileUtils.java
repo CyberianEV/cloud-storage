@@ -1,8 +1,5 @@
 package org.cloud.common;
 
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.serialization.ObjectEncoderOutputStream;
 import lombok.extern.slf4j.Slf4j;
 import org.cloud.model.FileCutMessage;
 
@@ -34,7 +31,7 @@ public class FileUtils {
         }
     }
 
-    public static void sendFileToNetwork(String srcDirectory, String fileName, Object output) {
+    public static void sendFileToNetwork(String srcDirectory, String fileName, NetworkHandler networkHandler) {
         File file = new File(srcDirectory + "/" + fileName);
         if (file.isFile()) {
             long fileSize = file.length();
@@ -43,14 +40,8 @@ public class FileUtils {
             try (InputStream in = new BufferedInputStream(new FileInputStream(file))) {
                 for (int i = 1; i <= numberOfCuts; i++) {
                     int bytesRead = in.read(bytes);
-                    if (output instanceof ObjectEncoderOutputStream objectOutputStream) {
-                        objectOutputStream.writeObject(new FileCutMessage(fileName, bytesRead, bytes, i,
+                    networkHandler.writeToNetwork(new FileCutMessage(fileName, bytesRead, bytes, i,
                                 i == numberOfCuts));
-                    } else if (output instanceof ChannelHandlerContext ctx) {
-                        ctx.writeAndFlush(new FileCutMessage(fileName, bytesRead, bytes, i, i == numberOfCuts));
-                    } else {
-                        throw new RuntimeException("Inappropriate output object");
-                    }
                     log.debug("file cut #{} / {} from {} sent", i, numberOfCuts, fileName);
                 }
             } catch (IOException e) {
@@ -72,7 +63,7 @@ public class FileUtils {
         }
     }
 
-    public static List<String> getFilesFromDir(String directory) {
+    public static List<String> getFilesFromDir(String directory, NetworkHandler networkHandler) {
         File dir = new File(directory);
         if (dir.isDirectory()) {
             File[] content = dir.listFiles();
@@ -89,7 +80,7 @@ public class FileUtils {
                 directories.sort(Collator.getInstance());
                 files.sort(Collator.getInstance());
                 List<String> list = new ArrayList<>();
-                list.add("..");
+                networkHandler.addUpwardNavigation(list);
                 list.addAll(directories);
                 list.addAll(files);
                 return list;

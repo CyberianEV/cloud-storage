@@ -5,5 +5,7 @@ public enum MessageType {
     FILE_REQUEST,
     FILE,
     NAVIGATION,
-    FILE_CUT
+    FILE_CUT,
+    RENAME,
+    DELETE
 }

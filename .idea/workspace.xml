@@ -4,12 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c6947e6-7569-4f99-b27e-07687d65ab26" name="Changes" comment="add homework">
-      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/FileCutMessage.java" afterDir="false" />
+    <list default="true" id="3c6947e6-7569-4f99-b27e-07687d65ab26" name="Changes" comment="add large file transfer">
+      <change afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/SideType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/NetworkHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/DeleteRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/RenameRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudMainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/java/org/cloud/client/CloudMainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-client/src/main/resources/org/cloud/client/cloud-client-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-client/src/main/resources/org/cloud/client/cloud-client-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/common/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/ListDirMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/ListDirMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/MessageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-common/src/main/java/org/cloud/model/MessageType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/nettyserver/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-server/src/main/java/org/cloud/nettyserver/FileHandler.java" afterDir="false" />
     </list>
@@ -22,8 +27,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="module-info" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -236,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710874458820</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="add large file transfer">
+      <created>1711058258967</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1711058258967</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -272,7 +285,8 @@
     <MESSAGE value="add code optimization" />
     <MESSAGE value="add classwork" />
     <MESSAGE value="add homework" />
-    <option name="LAST_COMMIT_MESSAGE" value="add homework" />
+    <MESSAGE value="add large file transfer" />
+    <option name="LAST_COMMIT_MESSAGE" value="add large file transfer" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
