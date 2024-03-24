@@ -1,11 +1,9 @@
 package org.cloud.common;
 
 import lombok.extern.slf4j.Slf4j;
+import org.cloud.model.FileCutMessage;
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +11,7 @@ import java.util.List;
 @Slf4j
 public class FileUtils {
     private static final int BATCH_SIZE = 256;
+    private static final int CUT_SIZE = 1024*256;
 
     public static void readFileFromStream (String dstDirectory, String fileName, DataInputStream dis) throws IOException {
         byte[] batch = new byte[BATCH_SIZE];
@@ -32,7 +31,39 @@ public class FileUtils {
         }
     }
 
-    public static List<String> getFilesFromDir(String directory) {
+    public static void sendFileToNetwork(String srcDirectory, String fileName, NetworkHandler networkHandler) {
+        File file = new File(srcDirectory + "/" + fileName);
+        if (file.isFile()) {
+            long fileSize = file.length();
+            byte[] bytes = new byte[CUT_SIZE];
+            long numberOfCuts = (fileSize + CUT_SIZE - 1) / CUT_SIZE;
+            try (InputStream in = new BufferedInputStream(new FileInputStream(file))) {
+                for (int i = 1; i <= numberOfCuts; i++) {
+                    int bytesRead = in.read(bytes);
+                    networkHandler.writeToNetwork(new FileCutMessage(fileName, bytesRead, bytes, i,
+                                i == numberOfCuts));
+                    log.debug("file cut #{} / {} from {} sent", i, numberOfCuts, fileName);
+                }
+            } catch (IOException e) {
+                log.error("file transfer interrupted", e);
+            }
+            log.debug("file '{}' sent", fileName);
+        } else {
+            log.debug("can't send a directory");
+        }
+    }
+
+    public static void writeCutToFile(String dstDirectory, String fileName, byte[] cutBytes, int cutSize) {
+        File file = new File(dstDirectory + "/" + fileName);
+        try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file, true))) {
+            out.write(cutBytes, 0, cutSize);
+            out.flush();
+        } catch (IOException e) {
+            log.error("file writing is interrupted", e);
+        }
+    }
+
+    public static List<String> getFilesFromDir(String directory, NetworkHandler networkHandler) {
         File dir = new File(directory);
         if (dir.isDirectory()) {
             File[] content = dir.listFiles();
@@ -49,7 +80,7 @@ public class FileUtils {
                 directories.sort(Collator.getInstance());
                 files.sort(Collator.getInstance());
                 List<String> list = new ArrayList<>();
-                list.add("..");
+                networkHandler.addUpwardNavigation(list);
                 list.addAll(directories);
                 list.addAll(files);
                 return list;

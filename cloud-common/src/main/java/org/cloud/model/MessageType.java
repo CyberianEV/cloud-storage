@@ -4,5 +4,8 @@ public enum MessageType {
     LIST_DIR,
     FILE_REQUEST,
     FILE,
-    NAVIGATION
+    NAVIGATION,
+    FILE_CUT,
+    RENAME,
+    DELETE
 }

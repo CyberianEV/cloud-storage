@@ -2,22 +2,16 @@ package org.cloud.model;
 
 import lombok.Getter;
 import org.cloud.common.FileUtils;
+import org.cloud.common.NetworkHandler;
 
-import java.nio.file.Path;
 import java.util.List;
 
 @Getter
 public class ListDirMessage implements CloudMessage {
     private final List<String> files;
 
-    public ListDirMessage(Path currentDir, Path topDir) {
-        if (currentDir.equals(topDir)) {
-            List<String> list = FileUtils.getFilesFromDir(currentDir.toString());
-            list.remove(0);
-            files = list;
-        } else {
-            files = FileUtils.getFilesFromDir(currentDir.toString());
-        }
+    public ListDirMessage(String directory, NetworkHandler networkHandler) {
+        files = FileUtils.getFilesFromDir(directory, networkHandler);
     }
 
     public ListDirMessage(List<String> files) {
